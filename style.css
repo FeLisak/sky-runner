@@ -1,0 +1,8 @@
+* {
+  background-color: #000;
+  overflow: hidden;
+}
+
+canvas {
+  width: 450px;
+}
