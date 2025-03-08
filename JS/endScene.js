@@ -26,6 +26,7 @@ class endScene extends Phaser.Scene {
 
     //Creates a button to change the Scene
     this.input.on("pointerdown", () => {
+      localStorage.setItem("score", 0);
       this.scene.stop("endScene");
       this.scene.start("gameScene");
     });

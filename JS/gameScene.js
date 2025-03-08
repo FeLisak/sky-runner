@@ -2,7 +2,7 @@ class gameScene extends Phaser.Scene {
   constructor() {
     super({ key: "gameScene" });
     this.score = 0; // Set score to 0 as default
-    this.platformSpeed = -200; // Defines platform speed to be created
+    this.gameSpeed = -200; // Defines platform speed to be created
     this.canJump = true; // Verifies if some key is being pressed continually
     this.lastPlatformsY = new Set([500]); // Use Set to avoid duplicate values
     this.lastPlatformsX = new Set(); // Stores the X positions of the previous 5 platforms
@@ -23,6 +23,10 @@ class gameScene extends Phaser.Scene {
   }
 
   create() {
+    // Reset game values
+    this.score = 0;
+    this.gameSpeed = -200;
+
     // Shows background
     this.add.image(400, 300, "gameSceneBackground");
 
@@ -107,9 +111,9 @@ class gameScene extends Phaser.Scene {
 
     // Increases game speed as score increases
     if (this.score % 50 === 0 && this.score > 0) {
-      this.platformSpeed -= 10;
-      this.platforms.setVelocityX(this.platformSpeed);
-      this.coins.setVelocityX(this.platformSpeed);
+      this.gameSpeed -= 10;
+      this.platforms.setVelocityX(this.gameSpeed);
+      this.coins.setVelocityX(this.gameSpeed);
     }
 
     this.player.anims.play("right", true);
@@ -153,18 +157,18 @@ class gameScene extends Phaser.Scene {
   // Creates platforms
   createPlatform(x, y) {
     let platform = this.platforms.create(x, y, "platform");
-    platform.setVelocityX(this.platformSpeed);
+    platform.setVelocityX(this.gameSpeed);
 
     // Add coins into platforms
     let coin = this.coins.create(x, y - 50, "coin");
-    coin.setVelocityX(this.platformSpeed);
+    coin.setVelocityX(this.gameSpeed);
   }
 
   // Creates first platform
   createLargePlatform(x, y) {
     let platform = this.platforms.create(x, y, "platform");
     platform.setDisplaySize(platform.width * 3, platform.height);
-    platform.setVelocityX(this.platformSpeed);
+    platform.setVelocityX(this.gameSpeed);
   }
 
   // Collects coins
